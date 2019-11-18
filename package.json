@@ -14,7 +14,7 @@
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
     "lint": "tsdx lint",
-    "pub": "npx np"
+    "pub": "np"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -35,6 +35,7 @@
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.4",
     "husky": "^3.0.9",
+    "np": "^5.1.3",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "tsdx": "^0.11.0",
