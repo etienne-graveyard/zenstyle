@@ -1,23 +1,34 @@
 {
   "name": "zenstyle",
   "version": "1.0.0-alpha.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/etienne-dldc/zenstyle#readme",
+  "bugs": {
+    "url": "https://github.com/etienne-dldc/zenstyle/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etienne-dldc/zenstyle.git"
+  },
   "license": "MIT",
   "author": "Etienne Dldc",
   "main": "dist/index.js",
   "module": "dist/zenstyle.esm.js",
   "typings": "dist/index.d.ts",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --env=jsdom",
     "lint": "tsdx lint",
-    "pub": "np"
-  },
-  "peerDependencies": {
-    "react": ">=16"
+    "pub": "np",
+    "start": "tsdx watch",
+    "test": "tsdx test --env=jsdom"
   },
   "husky": {
     "hooks": {
@@ -30,36 +41,25 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "devDependencies": {
-    "@types/jest": "^24.0.22",
-    "@types/react": "^16.9.11",
-    "@types/react-dom": "^16.9.4",
-    "husky": "^3.0.9",
-    "np": "^5.1.3",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "tsdx": "^0.11.0",
-    "tslib": "^1.10.0",
-    "typescript": "^3.7.2"
-  },
   "dependencies": {
-    "@emotion/cache": "^10.0.19",
-    "@emotion/core": "^10.0.22",
-    "@emotion/serialize": "^0.11.14",
-    "@emotion/utils": "^0.11.2"
+    "@emotion/cache": "^10.0.29",
+    "@emotion/core": "^10.0.28",
+    "@emotion/serialize": "^0.11.16",
+    "@emotion/utils": "^0.11.3"
   },
-  "description": "",
-  "directories": {
-    "example": "example",
-    "test": "test"
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "@types/react": "^16.9.25",
+    "@types/react-dom": "^16.9.5",
+    "husky": "^4.2.3",
+    "np": "^5.2.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "tsdx": "^0.13.0",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/etienne-dldc/zenstyle.git"
-  },
-  "keywords": [],
-  "bugs": {
-    "url": "https://github.com/etienne-dldc/zenstyle/issues"
-  },
-  "homepage": "https://github.com/etienne-dldc/zenstyle#readme"
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  }
 }
