@@ -40,7 +40,7 @@ export type StyledProps<Theme, T extends Tag> = PropsOfTag<T> & {
   zs?: ZsProp<Theme>;
 };
 
-type Styled<Theme, T extends Tag> = React.FC<StyledProps<Theme, T>>;
+export type StyledElem<Theme, T extends Tag> = React.FC<StyledProps<Theme, T>>;
 
 /**
  * StyledTagWithProps
@@ -66,7 +66,7 @@ export type StyledTagWithPropsTransformProps<Theme, T extends Tag, P> = (
   props: StyledTagWithPropsInternalProps<T, P>
 ) => StyledTagWithPropsTransformedProps<Theme, T>;
 
-type StyledTagWithProps<Theme, T extends Tag> = <Props = {}>(
+export type StyledTagWithPropsFactory<Theme, T extends Tag> = <Props = {}>(
   transformProps: StyledTagWithPropsTransformProps<Theme, T, Props>
 ) => React.ForwardRefExoticComponent<
   React.PropsWithoutRef<StyledTagWithPropsExternalProps<Theme, T, Props>> &
@@ -80,9 +80,13 @@ type StyledTagWithProps<Theme, T extends Tag> = <Props = {}>(
 export type StyledComponentProps<Theme, Props> = React.PropsWithoutRef<Props> &
   React.RefAttributes<any> & { zs: ZsProp<Theme> };
 
-export type StyledComponent<Theme, Props> = (
+export type StyledComponentResult<Theme, Props> = (
   ...zs: StyleArray<Theme>
 ) => React.ForwardRefExoticComponent<StyledComponentProps<Theme, Props>>;
+
+export type StyledComponentFactory<Theme> = <Props>(
+  Component: React.ComponentType<Props>
+) => StyledComponentResult<Theme, Props>;
 
 /**
  * StyledTag
@@ -94,21 +98,31 @@ export type StyledTagProps<Theme, T extends Tag> = React.PropsWithChildren<
   }
 >;
 
-type StyledTag<Theme, T extends Tag> = (
+export type StyledTagFactory<Theme, T extends Tag> = (
   ...zs: StyleArray<Theme>
 ) => React.FC<StyledTagProps<Theme, T>>;
 
-// export type ZenStyle<Theme> = {
-//   ofComponent: WithComponent<Theme>;
-//   ofTag: {
-//     [T in Tag]: WithTagFactory<Theme, T>;
-//   };
-//   withProps: {
-//     [T in Tag]: WithPropsFactory<Theme, T>;
-//   };
-// } & {
-//   [T in Tag]: StyledTag<Theme, T>;
-// };
+/**
+ * ZenStyle
+ */
+
+export type StyledObj<Theme> = {
+  [T in Tag]: StyledElem<Theme, T>;
+};
+
+export type StyledTagObj<Theme> = {
+  [T in Tag]: StyledTagFactory<Theme, T>;
+};
+export type StyledTagWithPropsObj<Theme> = {
+  [T in Tag]: StyledTagWithPropsFactory<Theme, T>;
+};
+
+export interface ZenStyle<Theme> {
+  Styled: StyledObj<Theme>;
+  StyledTag: StyledTagObj<Theme>;
+  StyledTagWithProps: StyledTagWithPropsObj<Theme>;
+  StyledComponent: StyledComponentFactory<Theme>;
+}
 
 export const EmotionCacheContext = React.createContext<EmotionCache>(
   createCache()
@@ -116,9 +130,9 @@ export const EmotionCacheContext = React.createContext<EmotionCache>(
 
 export const CacheProvider = EmotionCacheContext.Provider;
 
-export function createZenStyle<Theme>() {
-  function createStyled<T extends Tag>(tag: T): Styled<Theme, T> {
-    const Result: Styled<Theme, T> = React.forwardRef<
+export function createZenStyle<Theme>(): ZenStyle<Theme> {
+  function createStyled<T extends Tag>(tag: T): StyledElem<Theme, T> {
+    const Result: StyledElem<Theme, T> = React.forwardRef<
       HTMLElement,
       StyledProps<Theme, T>
     >((props, ref) => {
@@ -154,7 +168,7 @@ export function createZenStyle<Theme>() {
     return Result;
   }
 
-  function createStyledTag<T extends Tag>(tag: T): StyledTag<Theme, T> {
+  function createStyledTag<T extends Tag>(tag: T): StyledTagFactory<Theme, T> {
     const Component = (Styled as any)[tag];
     return (...zs: StyleArray<Theme>): React.FC<StyledTagProps<Theme, T>> => {
       const Result: React.FC<StyledTagProps<Theme, T>> = React.forwardRef<
@@ -240,7 +254,7 @@ export function createZenStyle<Theme>() {
 
   function StyledComponent<Props>(
     Component: React.ComponentType<Props>
-  ): StyledComponent<Theme, Props> {
+  ): StyledComponentResult<Theme, Props> {
     const StyledComp = createBaseStyledComponent(Component) as any;
 
     return (
@@ -257,21 +271,21 @@ export function createZenStyle<Theme>() {
   }
 
   const Styled: {
-    [T in Tag]: Styled<Theme, T>;
+    [T in Tag]: StyledElem<Theme, T>;
   } = tags.reduce<any>((acc, key) => {
     acc[key] = createStyled(key);
     return acc;
   }, {});
 
   const StyledTag: {
-    [T in Tag]: StyledTag<Theme, T>;
+    [T in Tag]: StyledTagFactory<Theme, T>;
   } = tags.reduce<any>((acc, key) => {
     acc[key] = createStyledTag(key);
     return acc;
   }, {});
 
   const StyledTagWithProps: {
-    [T in Tag]: StyledTagWithProps<Theme, T>;
+    [T in Tag]: StyledTagWithPropsFactory<Theme, T>;
   } = tags.reduce<any>((acc, key) => {
     acc[key] = createStyledTagWithProps(key);
     return acc;
