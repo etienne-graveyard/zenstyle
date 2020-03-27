@@ -1,20 +1,29 @@
-import { createStyled } from './styled';
+import { createZenStyle } from './styled';
 
 export const {
-  StyledComponent,
-  StyledComponentFactory,
-  StyledFactory,
-  StyledWrapper,
-} = createStyled<unknown>();
-
-export {
-  createStyled,
-  CacheProvider,
-  EmotionCacheContext,
   Styled,
-  StyledCSS,
-  StyledFn,
-  StyledWrapperFactory,
-  StyledWrapperProps,
-} from './styled';
+  StyledComponent,
+  StyledTag,
+  StyledTagWithProps,
+} = createZenStyle<unknown>();
+
+export default Styled;
+
 export { Tag } from './tags';
+export {
+  createZenStyle,
+  CacheProvider,
+  ZsProp,
+  EmotionCacheContext,
+  StyleArray,
+  StyledComponentProps,
+  StyledProps,
+  StyledTagProps,
+  StyledTagWithPropsExternalProps,
+  StyledTagWithPropsInternalProps,
+  StyledTagWithPropsTransformedProps,
+  StyledTagWithPropsTransformProps,
+  StyleFn,
+  StyleItem,
+  CSSObject,
+} from './styled';
