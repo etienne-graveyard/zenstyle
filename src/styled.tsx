@@ -98,9 +98,13 @@ export type StyledTagProps<Theme, T extends Tag> = React.PropsWithChildren<
   }
 >;
 
+export type StyledTagElem<Theme, T extends Tag> = React.FC<
+  StyledTagProps<Theme, T>
+>;
+
 export type StyledTagFactory<Theme, T extends Tag> = (
   ...zs: StyleArray<Theme>
-) => React.FC<StyledTagProps<Theme, T>>;
+) => StyledTagElem<Theme, T>;
 
 /**
  * ZenStyle
