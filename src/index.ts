@@ -2,6 +2,7 @@ import { createZenStyle } from './styled';
 
 export { mergeZs } from './utils';
 export { Tag } from './tags';
+export { createZenStyle } from './styled';
 
 export * from './types';
 
