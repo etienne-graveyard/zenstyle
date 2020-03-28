@@ -1,4 +1,8 @@
 import { createZenStyle } from './styled';
+export { mergeZs } from './utils';
+export { Tag } from './tags';
+
+export * from './types';
 
 export const {
   Styled,
@@ -8,6 +12,3 @@ export const {
 } = createZenStyle<unknown>();
 
 export default Styled;
-
-export { Tag } from './tags';
-export * from './styled';
