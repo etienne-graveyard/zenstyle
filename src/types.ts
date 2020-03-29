@@ -46,12 +46,12 @@ export type StyledTagWithPropsExternalProps<
   Theme,
   T extends Tag,
   Props = {}
-> = StyledTagWithPropsInternalProps<T, Props> & { zs: Zs<Theme> };
+> = StyledTagWithPropsInternalProps<T, Props> & { zs?: Zs<Theme> };
 
 export type StyledTagWithPropsTransformedProps<
   Theme,
   T extends Tag
-> = React.PropsWithChildren<PropsOfTag<T> & { zs: Zs<Theme> }>;
+> = React.PropsWithChildren<PropsOfTag<T> & { zs?: Zs<Theme> }>;
 
 export type StyledTagWithPropsTransformProps<Theme, T extends Tag, P> = (
   props: StyledTagWithPropsInternalProps<T, P>
@@ -69,7 +69,7 @@ export type StyledTagWithPropsFactory<Theme, T extends Tag> = <Props = {}>(
  */
 
 export type StyledComponentProps<Theme, Props> = React.PropsWithoutRef<Props> &
-  React.RefAttributes<any> & { zs: Zs<Theme> };
+  React.RefAttributes<any> & { zs?: Zs<Theme> };
 
 export type StyledComponentResult<Theme, Props> = (
   ...zs: ZsArray<Theme>
