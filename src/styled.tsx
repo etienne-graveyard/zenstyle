@@ -102,7 +102,6 @@ export function createZenStyle<Theme>(): ZenStyle<Theme> {
           zs: zsResolved,
           ref,
           ...computedProps,
-          ...passedProps,
         };
         return <Comp {...allProps} />;
       });
