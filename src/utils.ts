@@ -1,6 +1,6 @@
-import { Zs } from './types';
+import { Zs, ZsArray } from './types';
 
-export function mergeZs<Theme>(...zss: Array<Zs<Theme>>): Zs<Theme> {
+export function mergeZs<Theme>(...zss: Array<Zs<Theme>>): ZsArray<Theme> {
   return zss.map(zs => toArray(zs)).flat(1);
 }
 
