@@ -6,7 +6,7 @@ import {
 } from '@emotion/utils';
 import { serializeStyles } from '@emotion/serialize';
 import createCache from '@emotion/cache';
-import { ThemeContext } from '@emotion/core';
+import { useTheme } from '@emotion/react';
 import { Tag, TagToElement, tags } from './tags';
 import {
   ZenStyle,
@@ -25,7 +25,9 @@ import {
 import { mergeZs } from './utils';
 
 export const EmotionCacheContext = React.createContext<EmotionCache>(
-  createCache()
+  createCache({
+    key: 'zenstyle',
+  })
 );
 
 export const CacheProvider = EmotionCacheContext.Provider;
@@ -38,7 +40,7 @@ export function createZenStyle<Theme>(): ZenStyle<Theme> {
     >((props, ref) => {
       const { className, zs, ...tagProps } = props;
       const cache = React.useContext(EmotionCacheContext);
-      const theme = React.useContext(ThemeContext);
+      const theme = useTheme();
 
       let finalClassName = '';
       let classInterpolations: string[] = [];
@@ -111,13 +113,13 @@ export function createZenStyle<Theme>(): ZenStyle<Theme> {
   function createBaseStyledComponent<Props, RefType>(
     Component: React.ComponentType<Props>
   ) {
-    const Comp: React.RefForwardingComponent<
+    const Comp: React.ForwardRefRenderFunction<
       RefType,
       BaseStyledProps<Theme, Props>
     > = (props, ref) => {
       const { className, zs, ...otherProps } = props;
       const cache = React.useContext(EmotionCacheContext);
-      const theme = React.useContext(ThemeContext);
+      const theme = useTheme();
 
       let finalClassName = '';
       let classInterpolations: string[] = [];

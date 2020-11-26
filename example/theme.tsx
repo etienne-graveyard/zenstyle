@@ -1,6 +1,6 @@
 import React from 'react';
 import { createZenStyle } from '../src';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 
 interface Theme {
   color: string;
